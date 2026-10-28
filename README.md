@@ -11,7 +11,7 @@ The dashboard has the leaderboard, the score distribution, how strict or lenient
 Updated every hour from the form responses.
 
 <!-- results:start -->
-Latest response 10/28/2026 20:24:41 · 1847 reviews from 103 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
+Latest response 10/28/2026 20:39:14 · 1848 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -29,7 +29,7 @@ Latest response 10/28/2026 20:24:41 · 1847 reviews from 103 reviewers · 21 tea
 | 12 | BEAM | 90 | 8.94 | 8.94 | 0 | 5 | 20 | 40 | 25 | 28% |
 | 13 | Team name | 86 | 8.80 | 8.78 | 0 | 8 | 22 | 35 | 21 | 24% |
 | 14 | Team Builders | 90 | 8.68 | 8.68 | 1 | 9 | 27 | 34 | 19 | 21% |
-| 15 | Lasagna | 68 | 8.63 | 8.60 | 0 | 1 | 33 | 24 | 10 | 15% |
+| 15 | Lasagna | 69 | 8.62 | 8.59 | 0 | 1 | 34 | 24 | 10 | 14% |
 | 16 | Reflect | 89 | 8.57 | 8.56 | 5 | 10 | 25 | 27 | 22 | 25% |
 | 17 | Tortilla de Patatas | 87 | 8.51 | 8.50 | 0 | 13 | 33 | 25 | 16 | 18% |
 | 18 | Komanda 5 | 89 | 8.34 | 8.35 | 2 | 14 | 36 | 26 | 11 | 12% |
