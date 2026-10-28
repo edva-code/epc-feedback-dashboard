@@ -30,6 +30,7 @@ th button{all:unset;cursor:pointer;padding:6px 8px;display:block}th button:focus
 td{padding:7px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
 td.num,th.num button{text-align:right}
 tbody tr{cursor:pointer}tbody tr:hover{background:var(--grid)}tbody tr.on{background:var(--sel)}
+.vid{font-size:11px;color:var(--s1);border:1px solid var(--s1);border-radius:4px;padding:0 5px;margin-left:6px;text-decoration:none}.vid:hover{background:var(--sel)}
 .badge{font-size:11px;color:var(--muted);border:1px solid var(--axis);border-radius:4px;padding:0 4px;margin-left:6px}
 .dist{display:flex;gap:2px;height:14px;min-width:160px;border-radius:4px;overflow:hidden}
 .dist span{display:block;height:100%}
@@ -145,6 +146,9 @@ function parseCSV(t) {
 }
 console.assert(JSON.stringify(parseCSV('a,"b\n""c"""\r\n1,')) === '[["a","b\\n\\"c\\""],["1",""]]', 'parseCSV');
 
+// YouTube IDs from the "Video submission" form, keyed by the exact team name in the feedback form
+const VIDEOS = {"Communicators": "4oUy-oNaBiM", "BEAM": "_n0bM-JR-g4", "Team Builders": "2369zdaCVBQ", "Baziliskai": "-Wpdr6HjFxo", "Team name": "yF8skuU_6H0", "Reflect": "9BeAXuPKvQ4", "Uranium-235": "TxLuLuuHRVA", "A Moral Hazard": "w_Xj4tpgkdI", "Banglai": "wRjSxnmwCUs", "Zaibas": "_-xI6Wa69-s", "Sisyphus": "-cEpiEQKTNI", "weshop@vinted": "Ffa0PkDVqto", "Tortilla de Patatas": "iUvc2RoFCag", "(em)pathetic": "ZztCKh2tgUY", "Team": "Cbl5dOIBzqA", "Vilkai": "TnkmoM-O-os", "Etikos komisija": "Eiu0rbPpfCU", "komcon.": "YDexe75C2bI", "Komanda 5": "xhnwX4rXRWo", "Lasagna": "YvTruTNXd_Q", "VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ": "O0o12A7LrbI"};
+
 // the whole dashboard is built from RAW (rows without the header); not re-indented to keep the diff small
 function start(RAW) {
 const SC = [6,7,8,9,10];
@@ -251,7 +255,8 @@ function renderTable() {
   const head = el('tr',{}, ...cols.map(([k,l,c]) => el('th',{className:c||'', ariaSort: k===sortK ? (sortDir<0?'descending':'ascending') : 'none'},
     k ? el('button',{textContent: l + (k===sortK ? (sortDir<0?' ↓':' ↑') : ''), onclick:() => { sortDir = k===sortK ? -sortDir : -1; sortK = k; renderTable(); }}) : el('span',{style:'display:block;padding:6px 8px',textContent:l}))));
   const body = sorted.map((t,i) => el('tr',{className: t.name===sel ? 'on' : '', onclick:() => setSel(t.name)},
-    el('td',{}, `${i+1}. ${t.name}`, ...(t.n < 15 ? [el('span',{className:'badge',textContent:'few reviews'})] : [])),
+    el('td',{}, `${i+1}. ${t.name}`, ...(t.n < 15 ? [el('span',{className:'badge',textContent:'few reviews'})] : []),
+      ...(VIDEOS[t.name] ? [el('a',{className:'vid',href:`https://youtu.be/${VIDEOS[t.name]}`,target:'_blank',rel:'noopener',textContent:'▶ Video',ariaLabel:`Watch ${t.name}’s video on YouTube`,onclick:e => e.stopPropagation()})] : [])),
     el('td',{className:'num',textContent:t.n}),
     el('td',{className:'num',textContent:t.mean.toFixed(2),dataset:{tip:`${t.mean.toFixed(2)} ± ${(1.96*t.se).toFixed(2)} (95% CI)`}}),
     el('td',{className:'num',textContent:t.adj.toFixed(2)}),
