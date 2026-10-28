@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        # latest main, not the triggering commit: a re-run would otherwise start behind and its push gets rejected
+        with:
+          ref: main
       # the sheet's CSV export URL lives only in this secret; GitHub masks it in logs
       - run: curl -sSfL "$SHEET_CSV_URL" -o "$RUNNER_TEMP/responses.csv"
         env:
