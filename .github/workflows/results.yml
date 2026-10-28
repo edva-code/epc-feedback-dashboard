@@ -1,0 +1,22 @@
+name: Refresh results
+on:
+  schedule: [{cron: '7 * * * *'}]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # the sheet's CSV export URL lives only in this secret; GitHub masks it in logs
+      - run: curl -sSfL "$SHEET_CSV_URL" -o "$RUNNER_TEMP/responses.csv"
+        env:
+          SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
+      - run: python3 -I results.py "$RUNNER_TEMP/responses.csv" README.md
+      - run: |
+          git diff --quiet README.md && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898828+github-actions[bot]@users.noreply.github.com'
+          git commit -qam 'chore(results): refresh from the sheet'
+          git push -q
