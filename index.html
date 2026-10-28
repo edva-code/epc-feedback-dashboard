@@ -325,6 +325,15 @@ async function load(file) {
   } catch (e) { err.textContent = 'Couldn’t read that file: ' + e.message; }
 }
 if (EMBED) boot(EMBED);
+// shared links carry the sheet as #<id>/<gid>; the fragment never reaches GitHub, so the repo and page stay link-free
+const m = location.hash.match(/^#([\w-]{25,})\/(\d+)$/), dropH = document.querySelector('#drop h2');
+if (!EMBED && m) {
+  dropH.textContent = 'Loading the latest responses…';
+  fetch(`https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${m[2]}`)
+    .then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return load(r); })
+    .catch(e => document.getElementById('dropErr').textContent = `Couldn’t load the sheet (${e.message}), drop the CSV instead.`)
+    .finally(() => dropH.textContent = 'Load the responses');
+}
 const fileIn = document.getElementById('file');
 fileIn.onchange = () => fileIn.files[0] && load(fileIn.files[0]);
 addEventListener('dragover', e => { e.preventDefault(); document.body.classList.add('over'); });

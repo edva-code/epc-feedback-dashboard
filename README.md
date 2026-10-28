@@ -13,7 +13,9 @@ The output is one self-contained HTML file with no libraries or network calls. I
 
 ## Use it in the browser
 
-Open https://edva-code.github.io/epc-feedback-dashboard/, then in the feedback sheet choose File → Download → Comma-separated values (.csv) and drop the file on the page. The file is read in your browser and never uploaded; the page itself holds no data and no link to the sheet.
+Share it as `https://edva-code.github.io/epc-feedback-dashboard/#<sheet id>/<gid>`, taking both from the sheet's own URL (`/d/<sheet id>/edit...#gid=<gid>`). The page then loads the latest responses straight from Google in the visitor's browser on every visit. The part after `#` is never sent to GitHub, so the repo and the bare page hold no data and no link to the sheet; anyone with the full link can see the sheet, the same as with the sheet link itself.
+
+Without the `#` part the page asks for the CSV instead (File → Download → Comma-separated values in the sheet), which is read in the browser and never uploaded.
 
 ## Update from the live sheet
 
