@@ -228,7 +228,6 @@ legend('scLegend');
     `${dups.length} reviewer–team pairs were submitted more than once (${dups.reduce((a,v) => a+v.length-1, 0)} extra rows, kept in the totals).`,
     `${badIds.length} student IDs aren't 7 digits (${badIds.join(', ')}), probably typos, so one person may show up as two reviewers.`,
     `${rows.filter(r => blank(r.better)).length} “could be better” answers are blank or just “.”.`,
-    `Generic team names (“Team name”, “Team”) are probably two different videos, but check that.`,
   ];
   if (lowN.length) items.push(`Few reviews, so the average is unreliable: ${lowN.join(', ')}.`);
   document.getElementById('dq').replaceChildren(...items.map(t => el('li',{textContent:t})));
