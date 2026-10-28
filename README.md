@@ -6,7 +6,7 @@ The output is one self-contained HTML file with no libraries or network calls. I
 
 ## Results
 
-Team results from the feedback form, refreshed from the sheet every hour by a GitHub Action. Only team-level numbers are published here: no student IDs and no feedback text.
+Team results from the feedback form, refreshed from the sheet every hour by a GitHub Action. Only team-level numbers are shown here; the full feedback is in the [interactive dashboard](https://edva-code.github.io/epc-feedback-dashboard/).
 
 <!-- results:start -->
 Latest response 10/28/2026 18:26:45 · 1503 reviews from 99 reviewers · 21 teams · average 8.82 · 35% rated 10 · 14% rated 7 or lower
@@ -43,13 +43,17 @@ Latest response 10/28/2026 18:26:45 · 1503 reviews from 99 reviewers · 21 team
 - `index.html` is the dashboard source and the public page. With no data it asks for the CSV; `build.py` injects the rows at the `null/*DATA*/` placeholder for the local copy.
 - `build.py` builds `epc-feedback-dashboard.html` from the CSV and `index.html`, and sanity-checks the CSV first.
 - `update.sh` loads a fresh Drive export, diffs it against the current CSV, rebuilds, checks the page for JS errors in headless Chromium, prints per-team averages and opens the page.
-- `data/responses.csv` is the latest export of the sheet.
+- `publish.py` writes `data.csv`, the public copy of the responses with student IDs swapped for reviewer numbers.
+- `results.py` writes the results table into this README.
+- `data/responses.csv` is the latest export of the sheet (local only).
 
-## Interactive version (with the written feedback)
+## Interactive dashboard
 
-Share it as `https://edva-code.github.io/epc-feedback-dashboard/#<sheet id>/<gid>`, taking both from the sheet's own URL (`/d/<sheet id>/edit...#gid=<gid>`). The page then loads the latest responses straight from Google in the visitor's browser on every visit. The part after `#` is never sent to GitHub, so the repo and the bare page hold no data and no link to the sheet; anyone with the full link can see the sheet, the same as with the sheet link itself.
+https://edva-code.github.io/epc-feedback-dashboard/ has everything: the leaderboard, charts, reviewer leniency, data-quality flags and all the written feedback, searchable. It reads `data.csv`, which the same hourly Action writes from the sheet with every student ID replaced by a reviewer number (and any ID typed into a comment replaced by `[student ID]`).
 
-Without the `#` part the page asks for the CSV instead (File → Download → Comma-separated values in the sheet), which is read in the browser and never uploaded.
+To skip the hourly delay, share it as `https://edva-code.github.io/epc-feedback-dashboard/#<sheet id>/<gid>`, taking both from the sheet's own URL (`/d/<sheet id>/edit...#gid=<gid>`). The page then loads the latest responses straight from Google in the visitor's browser on every visit. The part after `#` is never sent to GitHub, so the repo and the bare page hold no data and no link to the sheet; anyone with the full link can see the sheet, the same as with the sheet link itself.
+
+If `data.csv` can't be loaded, the page asks for the CSV instead (File → Download → Comma-separated values in the sheet), which is read in the browser and never uploaded.
 
 ## Update from the live sheet
 
@@ -67,4 +71,4 @@ python3 -I build.py data/responses.csv index.html epc-feedback-dashboard.html
 
 ## Privacy
 
-`data/`, the built HTML (it embeds the data) and `shot.png` contain student IDs and personal feedback. They are gitignored, so don't share them.
+`data.csv` is public: timestamps, teams, scores and the written feedback, with no student IDs. `data/`, the built HTML (it embeds the data) and `shot.png` still contain the real student IDs. They are gitignored, so don't share them.

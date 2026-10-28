@@ -202,7 +202,7 @@ const days = [...group(rows, r => r.ts.split(' ')[0])].map(([d,v]) => `${d} (${v
 document.getElementById('meta').textContent = `Form responses 1 · ${rows.length} reviews · collected ${days}`;
 const kpi = (v,l) => el('div',{className:'card kpi'}, el('div',{className:'v',textContent:v}), el('div',{className:'l',textContent:l}));
 document.getElementById('kpis').append(
-  kpi(rows.length, 'reviews'), kpi(byRev.size, 'reviewers (student IDs)'), kpi(teams.length, 'teams / videos'),
+  kpi(rows.length, 'reviews'), kpi(byRev.size, 'reviewers'), kpi(teams.length, 'teams / videos'),
   kpi(grand.toFixed(2), 'average score (6–10)'), kpi(pct(rows.filter(r => r.score===10).length/rows.length), 'rated 10 “perfect example”'),
   kpi(pct(rows.filter(r => r.score<=7).length/rows.length), 'rated 7 or lower'));
 const legend = id => document.getElementById(id).replaceChildren(...SC.map(s => el('span',{}, el('i',{style:`background:${col(s)}`}), LBL[s])));
@@ -226,7 +226,7 @@ legend('scLegend');
   const lowN = teams.filter(t => t.n < 15).map(t => `${t.name} (${t.n})`);
   const items = [
     `${dups.length} reviewer–team pairs were submitted more than once (${dups.reduce((a,v) => a+v.length-1, 0)} extra rows, kept in the totals).`,
-    `${badIds.length} student IDs aren't 7 digits (${badIds.join(', ')}), probably typos, so one person may show up as two reviewers.`,
+    `${badIds.length} student IDs aren't 7 digits, probably typos, so one person may show up as two reviewers.`,
     `${rows.filter(r => blank(r.better)).length} “could be better” answers are blank or just “.”.`,
   ];
   if (lowN.length) items.push(`Few reviews, so the average is unreliable: ${lowN.join(', ')}.`);
@@ -327,9 +327,10 @@ async function load(file) {
 if (EMBED) boot(EMBED);
 // shared links carry the sheet as #<id>/<gid>; the fragment never reaches GitHub, so the repo and page stay link-free
 const m = location.hash.match(/^#([\w-]{25,})\/(\d+)$/), dropH = document.querySelector('#drop h2');
-if (!EMBED && m) {
+// without a sheet link, load data.csv: the Action's copy of the sheet with student IDs swapped for reviewer numbers
+if (!EMBED) {
   dropH.textContent = 'Loading the latest responses…';
-  fetch(`https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${m[2]}`)
+  fetch(m ? `https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${m[2]}` : 'data.csv', {cache:'no-cache'})
     .then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return load(r); })
     .catch(e => document.getElementById('dropErr').textContent = `Couldn’t load the sheet (${e.message}), drop the CSV instead.`)
     .finally(() => dropH.textContent = 'Load the responses');

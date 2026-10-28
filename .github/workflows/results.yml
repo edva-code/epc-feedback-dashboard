@@ -14,9 +14,11 @@ jobs:
         env:
           SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
       - run: python3 -I results.py "$RUNNER_TEMP/responses.csv" README.md
+      - run: python3 -I publish.py "$RUNNER_TEMP/responses.csv" data.csv
       - run: |
-          git diff --quiet README.md && exit 0
+          git add README.md data.csv
+          git diff --cached --quiet && exit 0
           git config user.name 'github-actions[bot]'
           git config user.email '41898828+github-actions[bot]@users.noreply.github.com'
-          git commit -qam 'chore(results): refresh from the sheet'
+          git commit -qm 'chore(results): refresh from the sheet'
           git push -q
