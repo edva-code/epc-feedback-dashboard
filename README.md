@@ -1,12 +1,14 @@
-# EPC 2026 video feedback dashboard
+# EPC 2026 video feedback
 
-A local dashboard for the "Feedback for video (EPC 2026) (Responses)" Google Form, where students rate other teams' videos on biases and fallacies.
+Results of the "Feedback for video (EPC 2026)" form, where students rated other teams' videos on biases and fallacies.
 
-The output is one self-contained HTML file with no libraries or network calls. It shows a team leaderboard with a reviewer-adjusted score, the score distribution, how lenient reviewers are, data-quality flags, feedback themes, the lowest-rated teams, and searchable comments.
+**[Open the interactive dashboard →](https://edva-code.github.io/epc-feedback-dashboard/)**
+
+The dashboard has the leaderboard, the score distribution, how strict or lenient reviewers were, and all the written feedback, searchable and filterable by team and score. Click a team to see only its reviews.
 
 ## Results
 
-Team results from the feedback form, refreshed from the sheet every hour by a GitHub Action. Only team-level numbers are shown here; the full feedback is in the [interactive dashboard](https://edva-code.github.io/epc-feedback-dashboard/).
+Updated every hour from the form responses.
 
 <!-- results:start -->
 Latest response 10/28/2026 19:42:02 · 1794 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
@@ -38,37 +40,12 @@ Latest response 10/28/2026 19:42:02 · 1794 reviews from 103 reviewers · 21 tea
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- results:end -->
 
-## Files
-
-- `index.html` is the dashboard source and the public page. With no data it asks for the CSV; `build.py` injects the rows at the `null/*DATA*/` placeholder for the local copy.
-- `build.py` builds `epc-feedback-dashboard.html` from the CSV and `index.html`, and sanity-checks the CSV first.
-- `update.sh` loads a fresh Drive export, diffs it against the current CSV, rebuilds, checks the page for JS errors in headless Chromium, prints per-team averages and opens the page.
-- `publish.py` writes `data.csv`, the public copy of the responses with student IDs swapped for reviewer numbers.
-- `results.py` writes the results table into this README.
-- `data/responses.csv` is the latest export of the sheet (local only).
-
-## Interactive dashboard
-
-https://edva-code.github.io/epc-feedback-dashboard/ has everything: the leaderboard, charts, reviewer leniency, data-quality flags and all the written feedback, searchable. It reads `data.csv`, which the same hourly Action writes from the sheet with every student ID replaced by a reviewer number (and any ID typed into a comment replaced by `[student ID]`).
-
-To skip the hourly delay, share it as `https://edva-code.github.io/epc-feedback-dashboard/#<sheet id>/<gid>`, taking both from the sheet's own URL (`/d/<sheet id>/edit...#gid=<gid>`). The page then loads the latest responses straight from Google in the visitor's browser on every visit. The part after `#` is never sent to GitHub, so the repo and the bare page hold no data and no link to the sheet; anyone with the full link can see the sheet, the same as with the sheet link itself.
-
-If `data.csv` can't be loaded, the page asks for the CSV instead (File → Download → Comma-separated values in the sheet), which is read in the browser and never uploaded.
-
-## Update from the live sheet
-
-Ask Claude Code to "update" the dashboard. It downloads the sheet as CSV through the Google Drive connector, then runs:
-
-```bash
-./update.sh <path to the download_file_content JSON>
-```
-
-To do it by hand, export the sheet as CSV to `data/responses.csv` and rebuild:
-
-```bash
-python3 -I build.py data/responses.csv index.html epc-feedback-dashboard.html
-```
-
 ## Privacy
 
-`data.csv` is public: timestamps, teams, scores and the written feedback, with no student IDs. `data/`, the built HTML (it embeds the data) and `shot.png` still contain the real student IDs. They are gitignored, so don't share them.
+No student IDs are published. Each reviewer is shown as a number (Reviewer 0000001, 0000002, …), and any student ID typed into a comment is replaced by `[student ID]`. The written feedback, scores, team names and submission times are public.
+
+## How it works
+
+A GitHub Action runs every hour, downloads the form responses, and writes `data.csv` (the responses without student IDs, via `publish.py`) and the results table above (via `results.py`). The dashboard is `index.html`, served by GitHub Pages, which reads `data.csv` in your browser.
+
+For local use, `build.py` builds a single offline HTML file from a CSV export of the sheet, and `update.sh` refreshes it. Keep `data/` and the built HTML private, since they still contain student IDs (both are gitignored).
