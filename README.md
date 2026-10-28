@@ -11,7 +11,7 @@ The dashboard has the leaderboard, the score distribution, how strict or lenient
 Updated every hour from the form responses.
 
 <!-- results:start -->
-Latest response 10/28/2026 20:03:34 · 1844 reviews from 103 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
+Latest response 10/28/2026 20:10:00 · 1845 reviews from 103 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -19,12 +19,12 @@ Latest response 10/28/2026 20:03:34 · 1844 reviews from 103 reviewers · 21 tea
 | 2 | Sisyphus | 92 | 9.70 | 9.71 | 0 | 1 | 7 | 11 | 73 | 79% |
 | 3 | weshop@vinted | 90 | 9.66 | 9.62 | 1 | 0 | 6 | 15 | 68 | 76% |
 | 4 | Banglai | 87 | 9.63 | 9.61 | 0 | 1 | 6 | 17 | 63 | 72% |
-| 5 | Communicators | 89 | 9.31 | 9.31 | 0 | 1 | 13 | 32 | 43 | 48% |
+| 5 | Communicators | 89 | 9.31 | 9.30 | 0 | 1 | 13 | 32 | 43 | 48% |
 | 6 | Zaibas | 92 | 9.20 | 9.20 | 1 | 0 | 10 | 50 | 31 | 34% |
 | 7 | Etikos komisija | 85 | 9.14 | 9.16 | 0 | 0 | 16 | 41 | 28 | 33% |
 | 8 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 88 | 9.12 | 9.13 | 0 | 4 | 16 | 33 | 35 | 40% |
-| 9 | komcon. | 86 | 9.07 | 9.10 | 2 | 2 | 14 | 38 | 30 | 35% |
-| 10 | Baziliskai | 88 | 9.07 | 9.04 | 1 | 2 | 17 | 38 | 30 | 34% |
+| 9 | komcon. | 86 | 9.07 | 9.09 | 2 | 2 | 14 | 38 | 30 | 35% |
+| 10 | Baziliskai | 89 | 9.06 | 9.04 | 1 | 2 | 18 | 38 | 30 | 34% |
 | 11 | Team | 89 | 9.00 | 9.02 | 0 | 5 | 18 | 38 | 28 | 31% |
 | 12 | BEAM | 89 | 8.96 | 8.94 | 0 | 5 | 19 | 40 | 25 | 28% |
 | 13 | Team name | 86 | 8.80 | 8.78 | 0 | 8 | 22 | 35 | 21 | 24% |
