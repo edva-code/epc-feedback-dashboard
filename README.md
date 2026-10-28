@@ -11,7 +11,7 @@ The dashboard has the leaderboard, the score distribution, how strict or lenient
 Updated every hour from the form responses.
 
 <!-- results:start -->
-Latest response 10/28/2026 20:15:30 · 1846 reviews from 103 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
+Latest response 10/28/2026 20:24:41 · 1847 reviews from 103 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -19,7 +19,7 @@ Latest response 10/28/2026 20:15:30 · 1846 reviews from 103 reviewers · 21 tea
 | 2 | Sisyphus | 92 | 9.70 | 9.70 | 0 | 1 | 7 | 11 | 73 | 79% |
 | 3 | weshop@vinted | 90 | 9.66 | 9.62 | 1 | 0 | 6 | 15 | 68 | 76% |
 | 4 | Banglai | 87 | 9.63 | 9.61 | 0 | 1 | 6 | 17 | 63 | 72% |
-| 5 | Communicators | 89 | 9.31 | 9.30 | 0 | 1 | 13 | 32 | 43 | 48% |
+| 5 | Communicators | 90 | 9.31 | 9.31 | 0 | 1 | 13 | 33 | 43 | 48% |
 | 6 | Zaibas | 92 | 9.20 | 9.20 | 1 | 0 | 10 | 50 | 31 | 34% |
 | 7 | Etikos komisija | 85 | 9.14 | 9.16 | 0 | 0 | 16 | 41 | 28 | 33% |
 | 8 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 88 | 9.12 | 9.13 | 0 | 4 | 16 | 33 | 35 | 40% |
@@ -35,7 +35,7 @@ Latest response 10/28/2026 20:15:30 · 1846 reviews from 103 reviewers · 21 tea
 | 18 | Komanda 5 | 89 | 8.34 | 8.35 | 2 | 14 | 36 | 26 | 11 | 12% |
 | 19 | A Moral Hazard | 94 | 8.33 | 8.33 | 4 | 12 | 41 | 23 | 14 | 15% |
 | 20 | Vilkai | 87 | 7.28 | 7.29 | 19 | 37 | 22 | 6 | 3 | 3% |
-| 21 | Uranium-235 | 92 | 6.63 | 6.67 | 47 | 34 | 9 | 2 | 0 | 0% |
+| 21 | Uranium-235 | 92 | 6.63 | 6.66 | 47 | 34 | 9 | 2 | 0 | 0% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- results:end -->
