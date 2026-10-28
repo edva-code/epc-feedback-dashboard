@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EPC Video Feedback</title>
+<style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);--s1:#2a78d6;--sel:#eef4fc;
+  --sc6:#e34948;--sc7:#f2a09c;--sc8:#c9c8c0;--sc9:#86b6ef;--sc10:#2a78d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);--s1:#3987e5;--sel:#1b2636;
+  --sc6:#e66767;--sc7:#8c3b3b;--sc8:#4a4946;--sc9:#1c5cab;--sc10:#5598e7}}
+:root[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);--s1:#3987e5;--sel:#1b2636;
+  --sc6:#e66767;--sc7:#8c3b3b;--sc8:#4a4946;--sc9:#1c5cab;--sc10:#5598e7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1240px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:0 0 2px}
+.sub,.cap{color:var(--ink2);margin:0}.cap{font-size:12px;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:16px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 16px}
+.kpi .v{font-size:28px;font-weight:600;font-variant-numeric:tabular-nums}.kpi .l{color:var(--ink2);font-size:12px}
+.grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
+.stack{display:grid;gap:16px;align-content:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;border-bottom:1px solid var(--axis);padding:0}
+th button{all:unset;cursor:pointer;padding:6px 8px;display:block}th button:focus-visible{outline:2px solid var(--s1)}
+td{padding:7px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td.num,th.num button{text-align:right}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--grid)}tbody tr.on{background:var(--sel)}
+.badge{font-size:11px;color:var(--muted);border:1px solid var(--axis);border-radius:4px;padding:0 4px;margin-left:6px}
+.dist{display:flex;gap:2px;height:14px;min-width:160px;border-radius:4px;overflow:hidden}
+.dist span{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--ink2);margin-bottom:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.hb{display:grid;grid-template-columns:minmax(110px,auto) 1fr 64px;gap:6px 10px;align-items:center;font-size:13px}
+.hb .lab{color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hb .val{text-align:right;font-variant-numeric:tabular-nums}
+.track{position:relative;height:14px}
+.track .bar{height:100%;border-radius:0 4px 4px 0;min-width:2px}
+.track .tick{position:absolute;top:-3px;width:2px;height:20px;background:var(--ink);border-radius:1px}
+.hist{display:flex;align-items:flex-end;gap:2px;height:130px;border-bottom:1px solid var(--axis)}
+.hist div{flex:1;background:var(--s1);border-radius:4px 4px 0 0;min-height:0}
+.hax{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+select,input,.seg button{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--axis);border-radius:6px;padding:5px 8px}
+input{flex:1;min-width:160px}
+.seg{display:inline-flex}.seg button{cursor:pointer;border-radius:0;margin-left:-1px}.seg button:first-child{border-radius:6px 0 0 6px;margin:0}.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.cmts{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.cm{border:1px solid var(--ring);border-radius:8px;padding:10px 12px;font-size:13px}
+.cm header{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:6px;gap:8px}
+.cm p{margin:4px 0}.cm b{font-weight:600;color:var(--ink2);font-size:11px;text-transform:uppercase;letter-spacing:.03em;margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:5px;color:var(--ink);font-weight:600}.chip i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.more{margin-top:12px;font:inherit;cursor:pointer;background:none;border:1px solid var(--axis);color:var(--ink);border-radius:6px;padding:6px 12px}
+ul.dq{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:5px 8px;border-radius:6px;opacity:0;transition:opacity .08s;z-index:9;max-width:260px}
+</style>
+</head>
+<body>
+<main>
+  <h1>EPC 2026 video feedback</h1>
+  <p class="sub" id="meta"></p>
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Team leaderboard</h2>
+      <p class="cap">Click a column to sort and a row to filter the panels below. “Adjusted” removes reviewer luck: each score is compared with that reviewer’s own average, then shifted back onto the overall average.</p>
+      <div class="legend" id="scLegend"></div>
+      <div class="tw"><table id="lb"></table></div>
+    </section>
+    <div class="stack">
+      <section class="card">
+        <h2 id="distTitle">Score distribution</h2>
+        <p class="cap" id="distCap"></p>
+        <div class="hb" id="dist"></div>
+      </section>
+      <section class="card">
+        <h2>Reviewer leniency</h2>
+        <p class="cap">Average score each reviewer gave (reviewers with 3 or more reviews). The spread shows why raw averages depend on who watched which video.</p>
+        <div class="hist" id="hist"></div><div class="hax" id="hax"></div>
+      </section>
+      <section class="card">
+        <h2>Data quality</h2>
+        <ul class="dq" id="dq"></ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2 id="thTitle">Feedback themes</h2>
+      <p class="cap">Share of comments that mention each theme, based on keyword matching, so treat the numbers as rough.</p>
+      <div class="controls"><div class="seg" id="thSeg"><button data-k="better" aria-pressed="true">Could be better</button><button data-k="good" aria-pressed="false">What was good</button></div></div>
+      <div class="legend" id="thLegend"></div>
+      <div class="hb" id="themes"></div>
+    </section>
+    <section class="card">
+      <h2>Lowest-rated reviews</h2>
+      <p class="cap" id="lowCap"></p>
+      <div class="hb" id="low"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Comments</h2>
+    <p class="cap" id="cmCap"></p>
+    <div class="controls">
+      <select id="teamSel" aria-label="Team"></select>
+      <div class="seg" id="scSeg"></div>
+      <input id="q" type="search" placeholder="Search comments…" aria-label="Search comments">
+    </div>
+    <div class="cmts" id="cmts"></div>
+    <button class="more" id="more" hidden>Show more</button>
+  </section>
+</main>
+<div id="tip" role="tooltip"></div>
+<script>
+const RAW = /*DATA*/;
+const SC = [6,7,8,9,10];
+const LBL = {6:'6 – re-do',7:'7 – borderline',8:'8 – good',9:'9 – awesome',10:'10 – perfect'};
+const col = s => `var(--sc${s})`;
+const blank = s => s.replace(/[\s.\-–_]/g,'').length < 3;
+const rows = RAW.map(r => ({ts:r[0], id:r[1].trim(), team:r[2].trim(), good:r[3].trim(), better:r[4].trim(), score:parseInt(r[5],10), other:(r[6]||'').trim()}));
+const mean = a => a.reduce((s,x) => s+x, 0) / a.length;
+const group = (a,f) => a.reduce((m,x) => (m.get(f(x)) || m.set(f(x),[]).get(f(x))).push(x) && m, new Map());
+const pct = x => (100*x).toFixed(0) + '%';
+const el = (tag, {dataset, ...props}={}, ...kids) => { const e = Object.assign(document.createElement(tag), props); Object.assign(e.dataset, dataset); e.append(...kids); return e; };
+
+const grand = mean(rows.map(r => r.score));
+const byRev = group(rows, r => r.id);
+const revMean = new Map([...byRev].map(([k,v]) => [k, mean(v.map(r => r.score))]));
+// Adjusted = grand mean + average of (score − that reviewer's own mean): removes harsh/lenient-reviewer luck.
+const teams = [...group(rows, r => r.team)].map(([name, rs]) => {
+  const s = rs.map(r => r.score), m = mean(s);
+  const sd = Math.sqrt(s.reduce((a,x) => a + (x-m)**2, 0) / Math.max(1, s.length-1));
+  return {name, rs, n:rs.length, mean:m, se:sd/Math.sqrt(s.length), adj:grand + mean(rs.map(r => r.score - revMean.get(r.id))),
+          counts:SC.map(k => s.filter(x => x===k).length), top:s.filter(x => x===10).length/s.length};
+});
+
+const THEMES = {
+  better: [
+    ['Audio / voice-over', /audio|sound|mic|voice|hear|loud|quiet|volume|music/i],
+    ['Subtitles', /subtit|caption/i],
+    ['Length / pacing', /too long|longer|shorter|too short|length|pac(e|ing)|slow|rush|repet|drag|time limit/i],
+    ['Too many memes', /meme/i],
+    ['Acting / delivery', /acting|acted|act out|delivery|narrat|tone|camera|laugh/i],
+    ['Editing / visuals', /edit|visual|graphic|quality|transition|animation/i],
+    ['Clarity of explanation', /explain|explanation|confus|understand|hard to follow|unclear/i],
+    ['More engaging / creative', /boring|creativ|engag|intrigu|original|plain/i],
+    ['AI-generated content', /\bAI\b|generated/],
+    ['Nothing to improve', /^(nothing|none|no)\b|not much|can'?t think|nothing to|everything was|no improvement/i],
+    ['Left blank', {test: blank}],
+  ],
+  good: [
+    ['Humor', /funn|humou?r|joke|laugh|comic|amus|meme/i],
+    ['Relatable / real examples', /relatab|example|real|situation|scenario/i],
+    ['Clear explanation', /clear|explain|explanation|understand|structured|easy to follow/i],
+    ['Editing / visuals', /edit|visual|graphic|animation|quality/i],
+    ['Acting', /acting|acted|actor|perform/i],
+    ['Creativity / originality', /creativ|unique|original|idea|concept|nostalg/i],
+    ['Engaging', /engag|interesting|attention|enjoy|captivat/i],
+    ['Narration / voice', /narrat|voice/i],
+  ],
+};
+
+let sel = null, sortK = 'adj', sortDir = -1, thK = 'better', scF = null, shown = 40;
+const selRows = () => sel ? teams.find(t => t.name === sel).rs : rows;
+
+// ---- static parts ----
+const days = [...group(rows, r => r.ts.split(' ')[0])].map(([d,v]) => `${d} (${v.length})`).join(', ');
+document.getElementById('meta').textContent = `Form responses 1 · ${rows.length} reviews · collected ${days}`;
+const kpi = (v,l) => el('div',{className:'card kpi'}, el('div',{className:'v',textContent:v}), el('div',{className:'l',textContent:l}));
+document.getElementById('kpis').append(
+  kpi(rows.length, 'reviews'), kpi(byRev.size, 'reviewers (student IDs)'), kpi(teams.length, 'teams / videos'),
+  kpi(grand.toFixed(2), 'average score (6–10)'), kpi(pct(rows.filter(r => r.score===10).length/rows.length), 'rated 10 “perfect example”'),
+  kpi(pct(rows.filter(r => r.score<=7).length/rows.length), 'rated 7 or lower'));
+const legend = id => document.getElementById(id).replaceChildren(...SC.map(s => el('span',{}, el('i',{style:`background:${col(s)}`}), LBL[s])));
+legend('scLegend');
+
+// reviewer leniency histogram
+{
+  const ms = [...byRev].filter(([,v]) => v.length >= 3).map(([k]) => revMean.get(k));
+  const lo = 6, w = 0.25, bins = Array.from({length:16}, (_,i) => ({a:lo+i*w, n:0}));
+  ms.forEach(m => bins[Math.min(15, Math.floor((m-lo)/w))].n++);
+  const max = Math.max(...bins.map(b => b.n));
+  document.getElementById('hist').replaceChildren(...bins.map(b => el('div',{style:`height:${100*b.n/max}%`, dataset:{tip:`Average ${b.a.toFixed(2)}–${(b.a+w).toFixed(2)}: ${b.n} reviewers`}})));
+  document.getElementById('hax').replaceChildren(...[6,7,8,9,10].map(x => el('span',{textContent:x})));
+}
+
+// data quality
+{
+  const pairs = group(rows, r => r.id + '|' + r.team);
+  const dups = [...pairs.values()].filter(v => v.length > 1);
+  const badIds = [...byRev.keys()].filter(k => !/^\d{7}$/.test(k));
+  const lowN = teams.filter(t => t.n < 15).map(t => `${t.name} (${t.n})`);
+  const items = [
+    `${dups.length} reviewer–team pairs were submitted more than once (${dups.reduce((a,v) => a+v.length-1, 0)} extra rows, kept in the totals).`,
+    `${badIds.length} student IDs aren't 7 digits (${badIds.join(', ')}), probably typos, so one person may show up as two reviewers.`,
+    `${rows.filter(r => blank(r.better)).length} “could be better” answers are blank or just “.”.`,
+    `Generic team names (“Team name”, “Team”) are probably two different videos, but check that.`,
+  ];
+  if (lowN.length) items.push(`Few reviews, so the average is unreliable: ${lowN.join(', ')}.`);
+  document.getElementById('dq').replaceChildren(...items.map(t => el('li',{textContent:t})));
+}
+
+// filters
+document.getElementById('teamSel').replaceChildren(el('option',{value:'',textContent:'All teams'}),
+  ...[...teams].sort((a,b) => a.name.localeCompare(b.name)).map(t => el('option',{value:t.name,textContent:`${t.name} (${t.n})`})));
+document.getElementById('teamSel').onchange = e => setSel(e.target.value || null);
+document.getElementById('scSeg').replaceChildren(...[null, ...SC].map(s => el('button',{textContent:s ?? 'All', ariaPressed:String(s===scF), onclick:() => { scF = s; shown = 40; renderComments(); }})));
+document.getElementById('q').oninput = () => { shown = 40; renderComments(); };
+document.getElementById('thSeg').onclick = e => { const k = e.target.dataset.k; if (k) { thK = k; renderThemes(); } };
+document.getElementById('more').onclick = () => { shown += 40; renderComments(); };
+
+function setSel(name) { sel = sel === name ? null : name; scF = null; shown = 40; document.getElementById('teamSel').value = sel || ''; render(); }
+
+// ---- dynamic parts ----
+function renderTable() {
+  const cols = [['name','Team'],['n','Reviews','num'],['mean','Avg','num'],['adj','Adjusted','num'],[null,'Distribution'],['top','Share of 10s','num']];
+  const sorted = [...teams].sort((a,b) => sortK==='name' ? sortDir*-a.name.localeCompare(b.name) : sortDir*(a[sortK]-b[sortK]));
+  const head = el('tr',{}, ...cols.map(([k,l,c]) => el('th',{className:c||'', ariaSort: k===sortK ? (sortDir<0?'descending':'ascending') : 'none'},
+    k ? el('button',{textContent: l + (k===sortK ? (sortDir<0?' ↓':' ↑') : ''), onclick:() => { sortDir = k===sortK ? -sortDir : -1; sortK = k; renderTable(); }}) : el('span',{style:'display:block;padding:6px 8px',textContent:l}))));
+  const body = sorted.map((t,i) => el('tr',{className: t.name===sel ? 'on' : '', onclick:() => setSel(t.name)},
+    el('td',{}, `${i+1}. ${t.name}`, ...(t.n < 15 ? [el('span',{className:'badge',textContent:'few reviews'})] : [])),
+    el('td',{className:'num',textContent:t.n}),
+    el('td',{className:'num',textContent:t.mean.toFixed(2),dataset:{tip:`${t.mean.toFixed(2)} ± ${(1.96*t.se).toFixed(2)} (95% CI)`}}),
+    el('td',{className:'num',textContent:t.adj.toFixed(2)}),
+    el('td',{}, el('div',{className:'dist'}, ...t.counts.map((c,j) => c ? el('span',{style:`width:${100*c/t.n}%;background:${col(SC[j])}`, dataset:{tip:`${t.name} · ${LBL[SC[j]]}: ${c} (${pct(c/t.n)})`}}) : ''))),
+    el('td',{className:'num',textContent:pct(t.top)})));
+  document.getElementById('lb').replaceChildren(el('thead',{},head), el('tbody',{},...body));
+}
+
+function hbars(id, items, ref) {
+  const max = Math.max(...items.map(x => Math.max(x.v, ref ? x.r : 0)), 1e-9);
+  document.getElementById(id).replaceChildren(...items.flatMap(x => [
+    el('span',{className:'lab',textContent:x.label,title:x.label}),
+    el('div',{className:'track'}, el('div',{className:'bar',style:`width:${100*x.v/max}%;background:${x.c||'var(--s1)'}`, dataset:{tip:x.tip}}),
+      ...(ref ? [el('div',{className:'tick',style:`left:calc(${100*x.r/max}% - 1px)`, dataset:{tip:`All teams: ${pct(x.r)}`}})] : [])),
+    el('span',{className:'val',textContent:x.txt}),
+  ]));
+}
+
+function renderDist() {
+  const rs = selRows();
+  document.getElementById('distTitle').textContent = `Score distribution · ${sel || 'all teams'}`;
+  const m = mean(rs.map(r => r.score));
+  document.getElementById('distCap').textContent = `${rs.length} reviews · average ${m.toFixed(2)}` + (sel ? ` (all teams: ${grand.toFixed(2)})` : '');
+  hbars('dist', [...SC].reverse().map(s => { const n = rs.filter(r => r.score===s).length;
+    return {label:LBL[s], v:n, c:col(s), txt:`${n} · ${pct(n/rs.length)}`, tip:`${LBL[s]}: ${n} reviews`}; }));
+}
+
+function renderThemes() {
+  document.querySelectorAll('#thSeg button').forEach(b => b.ariaPressed = String(b.dataset.k===thK));
+  const rs = selRows(), share = (set,re) => set.filter(r => re.test(r[thK])).length / set.length;
+  document.getElementById('thTitle').textContent = `Feedback themes · ${sel || 'all teams'}`;
+  document.getElementById('thLegend').replaceChildren(...(sel ? [el('span',{}, el('i',{style:'background:var(--s1)'}), sel), el('span',{}, el('i',{style:'background:var(--ink);width:2px'}), 'All teams')] : []));
+  hbars('themes', THEMES[thK].map(([label,re]) => { const v = share(rs,re);
+    return {label, v, r:share(rows,re), txt:pct(v), tip:`${label}: ${pct(v)} of ${sel || 'all'} comments`}; })
+    .sort((a,b) => b.v-a.v), !!sel);
+}
+
+function renderLow() {
+  const lows = teams.map(t => ({t, v:(t.counts[0]+t.counts[1])/t.n})).sort((a,b) => b.v-a.v).slice(0,8);
+  document.getElementById('lowCap').textContent = 'Share of each team’s reviews scored 6 or 7, top 8. Click a team in the leaderboard to read why.';
+  hbars('low', lows.map(({t,v}) => ({label:t.name, v, c:'var(--sc6)', txt:pct(v), tip:`${t.name}: ${t.counts[0]} × 6, ${t.counts[1]} × 7 of ${t.n}`})));
+}
+
+function renderComments() {
+  document.querySelectorAll('#scSeg button').forEach((b,i) => b.ariaPressed = String([null,...SC][i]===scF));
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const list = selRows().filter(r => (scF===null || r.score===scF) && (!q || (r.good+' '+r.better+' '+r.other+' '+r.team).toLowerCase().includes(q)))
+    .sort((a,b) => a.score-b.score);
+  document.getElementById('cmCap').textContent = `${list.length} reviews, lowest scores first${sel ? ' · ' + sel : ''}`;
+  document.getElementById('cmts').replaceChildren(...list.slice(0,shown).map(r => el('article',{className:'cm'},
+    el('header',{}, el('span',{className:'chip'}, el('i',{style:`background:${col(r.score)}`}), LBL[r.score]), el('span',{textContent:`${sel ? '' : r.team + ' · '}${r.ts}`})),
+    el('p',{}, el('b',{textContent:'Good'}), r.good),
+    el('p',{}, el('b',{textContent:'Better'}), blank(r.better) ? '—' : r.better),
+    ...(r.other ? [el('p',{}, el('b',{textContent:'Other'}), r.other)] : []))));
+  document.getElementById('more').hidden = list.length <= shown;
+}
+
+function render() { renderTable(); renderDist(); renderThemes(); renderComments(); }
+renderLow(); render();
+
+// tooltip
+const tip = document.getElementById('tip');
+document.addEventListener('mousemove', e => {
+  const t = e.target.closest('[data-tip]');
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.textContent = t.dataset.tip; tip.style.opacity = 1;
+  const x = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+});
+</script>
+</body>
+</html>
