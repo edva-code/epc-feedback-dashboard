@@ -12,7 +12,7 @@ print('old',len(a)-1,'new',len(b)-1,'header same',a[0]==b[0],'added',len(new),'r
 if new: print('added range',new[0][0],'->',new[-1][0])
 EOF
 mv $D/responses.csv $S/data/responses.csv && rmdir $D
-python3 -I $S/build.py $S/data/responses.csv $S/template.html $S/epc-feedback-dashboard.html
+python3 -I $S/build.py $S/data/responses.csv $S/index.html $S/epc-feedback-dashboard.html
 chromium --headless=new --disable-gpu --window-size=1280,1000 --screenshot=$S/shot.png "file://$S/epc-feedback-dashboard.html" 2>&1 | grep -E "CONSOLE" || true
 python3 -I - $S/data/responses.csv <<'EOF'
 import csv,sys,statistics as st

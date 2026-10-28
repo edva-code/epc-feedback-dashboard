@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
 <title>EPC Video Feedback</title>
 <style>
 :root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);--s1:#2a78d6;--sel:#eef4fc;
@@ -54,6 +55,8 @@ input{flex:1;min-width:160px}
 .chip{display:inline-flex;align-items:center;gap:5px;color:var(--ink);font-weight:600}.chip i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .more{margin-top:12px;font:inherit;cursor:pointer;background:none;border:1px solid var(--axis);color:var(--ink);border-radius:6px;padding:6px 12px}
 ul.dq{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
+body:not(.ready) main > :not(h1,#drop){display:none}.ready #drop{display:none}
+#drop{margin-top:20px;border:2px dashed var(--axis)}body.over #drop{border-color:var(--s1)}#dropErr{color:var(--sc6);margin:8px 0 0}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:5px 8px;border-radius:6px;opacity:0;transition:opacity .08s;z-index:9;max-width:260px}
 </style>
 </head>
@@ -61,6 +64,12 @@ ul.dq{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
 <main>
   <h1>EPC 2026 video feedback</h1>
   <p class="sub" id="meta"></p>
+  <section class="card" id="drop">
+    <h2>Load the responses</h2>
+    <p class="cap">In the feedback sheet choose File → Download → Comma-separated values (.csv), then drop the file anywhere on this page or pick it below. The file is read in your browser and never uploaded.</p>
+    <input type="file" id="file" accept=".csv,text/csv" aria-label="Responses CSV file">
+    <p class="cap" id="dropErr" role="alert"></p>
+  </section>
   <section class="kpis" id="kpis"></section>
 
   <div class="grid">
@@ -117,7 +126,27 @@ ul.dq{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
 </main>
 <div id="tip" role="tooltip"></div>
 <script>
-const RAW = /*DATA*/;
+// build.py injects the rows here for the local copy; the public page stays empty and loads a CSV instead
+const EMBED = null/*DATA*/;
+
+// RFC 4180: quoted fields may hold commas, newlines and "" escapes (the comments do)
+function parseCSV(t) {
+  const out = [[]]; let f = '', q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c !== '"') f += c; else if (t[i+1] === '"') { f += '"'; i++; } else q = false; }
+    else if (c === '"') q = true;
+    else if (c === ',') { out.at(-1).push(f); f = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && t[i+1] === '\n') i++; out.at(-1).push(f); f = ''; out.push([]); }
+    else f += c;
+  }
+  out.at(-1).push(f);
+  return out;
+}
+console.assert(JSON.stringify(parseCSV('a,"b\n""c"""\r\n1,')) === '[["a","b\\n\\"c\\""],["1",""]]', 'parseCSV');
+
+// the whole dashboard is built from RAW (rows without the header); not re-indented to keep the diff small
+function start(RAW) {
 const SC = [6,7,8,9,10];
 const LBL = {6:'6 – re-do',7:'7 – borderline',8:'8 – good',9:'9 – awesome',10:'10 – perfect'};
 const col = s => `var(--sc${s})`;
@@ -283,6 +312,26 @@ function renderComments() {
 
 function render() { renderTable(); renderDist(); renderThemes(); renderComments(); }
 renderLow(); render();
+} // start
+
+const boot = rows => { document.body.classList.add('ready'); start(rows); };
+async function load(file) {
+  const err = document.getElementById('dropErr');
+  try {
+    const rows = parseCSV((await file.text()).replace(/^﻿/, '')).slice(1).filter(r => r.some(c => c.trim()))
+      .map(r => r.concat(Array(Math.max(0, 7 - r.length)).fill('')));
+    if (!rows.length || !rows.every(r => /^(6|7|8|9|10)\b/.test(r[5])))
+      return err.textContent = 'This doesn’t look like the feedback form export: the 6th column should be the 6–10 evaluation.';
+    boot(rows);
+  } catch (e) { err.textContent = 'Couldn’t read that file: ' + e.message; }
+}
+if (EMBED) boot(EMBED);
+const fileIn = document.getElementById('file');
+fileIn.onchange = () => fileIn.files[0] && load(fileIn.files[0]);
+addEventListener('dragover', e => { e.preventDefault(); document.body.classList.add('over'); });
+addEventListener('dragleave', () => document.body.classList.remove('over'));
+addEventListener('drop', e => { e.preventDefault(); document.body.classList.remove('over');
+  if (e.dataTransfer.files[0] && !document.body.classList.contains('ready')) load(e.dataTransfer.files[0]); });
 
 // tooltip
 const tip = document.getElementById('tip');

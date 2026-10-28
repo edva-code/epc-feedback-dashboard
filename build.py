@@ -15,6 +15,6 @@ print('scores', dict(sorted(scores.items())), 'teams', len({r[2].strip() for r i
 # escape "<" so a comment containing "</script>" can't break out of the script tag
 data = json.dumps(rows, ensure_ascii=False).replace('<', '\\u003c')
 tpl = open(tpl_path, encoding='utf-8').read()
-assert tpl.count('/*DATA*/') == 1
-open(out_path, 'w', encoding='utf-8').write(tpl.replace('/*DATA*/', data))
+assert tpl.count('null/*DATA*/') == 1
+open(out_path, 'w', encoding='utf-8').write(tpl.replace('null/*DATA*/', data))
 print('wrote', out_path, len(rows), 'rows')
