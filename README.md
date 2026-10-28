@@ -9,31 +9,31 @@ The output is one self-contained HTML file with no libraries or network calls. I
 Team results from the feedback form, refreshed from the sheet every hour by a GitHub Action. Only team-level numbers are shown here; the full feedback is in the [interactive dashboard](https://edva-code.github.io/epc-feedback-dashboard/).
 
 <!-- results:start -->
-Latest response 10/28/2026 19:15:39 · 1717 reviews from 101 reviewers · 21 teams · average 8.83 · 35% rated 10 · 13% rated 7 or lower
+Latest response 10/28/2026 19:35:41 · 1768 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| 1 | (em)pathetic | 80 | 9.75 | 9.77 | 0 | 1 | 4 | 9 | 66 | 82% |
+| 1 | (em)pathetic | 84 | 9.75 | 9.75 | 0 | 1 | 4 | 10 | 69 | 82% |
 | 2 | Sisyphus | 88 | 9.69 | 9.71 | 0 | 1 | 7 | 10 | 70 | 80% |
-| 3 | weshop@vinted | 85 | 9.65 | 9.62 | 1 | 0 | 6 | 14 | 64 | 75% |
-| 4 | Banglai | 81 | 9.63 | 9.62 | 0 | 1 | 6 | 15 | 59 | 73% |
-| 5 | Communicators | 87 | 9.30 | 9.29 | 0 | 1 | 13 | 32 | 41 | 47% |
-| 6 | Zaibas | 83 | 9.18 | 9.20 | 1 | 0 | 10 | 44 | 28 | 34% |
-| 7 | Etikos komisija | 78 | 9.15 | 9.16 | 0 | 0 | 14 | 38 | 26 | 33% |
-| 8 | komcon. | 77 | 9.12 | 9.13 | 1 | 2 | 12 | 34 | 28 | 36% |
-| 9 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 81 | 9.11 | 9.12 | 0 | 4 | 16 | 28 | 33 | 41% |
-| 10 | Baziliskai | 87 | 9.08 | 9.06 | 1 | 2 | 16 | 38 | 30 | 34% |
-| 11 | BEAM | 87 | 8.97 | 8.97 | 0 | 5 | 18 | 39 | 25 | 29% |
-| 12 | Team | 79 | 8.94 | 8.96 | 0 | 5 | 18 | 33 | 23 | 29% |
+| 3 | Banglai | 83 | 9.64 | 9.62 | 0 | 1 | 6 | 15 | 61 | 73% |
+| 4 | weshop@vinted | 86 | 9.65 | 9.62 | 1 | 0 | 6 | 14 | 65 | 76% |
+| 5 | Communicators | 89 | 9.31 | 9.30 | 0 | 1 | 13 | 32 | 43 | 48% |
+| 6 | Zaibas | 86 | 9.17 | 9.19 | 1 | 0 | 10 | 47 | 28 | 33% |
+| 7 | Etikos komisija | 81 | 9.16 | 9.19 | 0 | 0 | 14 | 40 | 27 | 33% |
+| 8 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 84 | 9.12 | 9.14 | 0 | 4 | 16 | 30 | 34 | 40% |
+| 9 | komcon. | 81 | 9.05 | 9.08 | 2 | 2 | 14 | 35 | 28 | 35% |
+| 10 | Baziliskai | 87 | 9.08 | 9.05 | 1 | 2 | 16 | 38 | 30 | 34% |
+| 11 | Team | 85 | 8.98 | 8.99 | 0 | 5 | 18 | 36 | 26 | 31% |
+| 12 | BEAM | 88 | 8.97 | 8.96 | 0 | 5 | 18 | 40 | 25 | 28% |
 | 13 | Team name | 84 | 8.80 | 8.78 | 0 | 8 | 21 | 35 | 20 | 24% |
-| 14 | Team Builders | 88 | 8.67 | 8.68 | 1 | 9 | 26 | 34 | 18 | 20% |
-| 15 | Lasagna | 53 | 8.72 | 8.64 | 0 | 1 | 23 | 19 | 10 | 19% |
-| 16 | Reflect | 86 | 8.59 | 8.58 | 4 | 10 | 24 | 27 | 21 | 24% |
-| 17 | Tortilla de Patatas | 80 | 8.47 | 8.49 | 0 | 12 | 31 | 24 | 13 | 16% |
-| 18 | A Moral Hazard | 88 | 8.39 | 8.40 | 2 | 11 | 40 | 21 | 14 | 16% |
-| 19 | Komanda 5 | 77 | 8.30 | 8.30 | 2 | 13 | 32 | 20 | 10 | 13% |
-| 20 | Vilkai | 81 | 7.27 | 7.29 | 17 | 36 | 20 | 5 | 3 | 4% |
-| 21 | Uranium-235 | 87 | 6.60 | 6.60 | 45 | 34 | 6 | 2 | 0 | 0% |
+| 14 | Team Builders | 89 | 8.69 | 8.68 | 1 | 9 | 26 | 34 | 19 | 21% |
+| 15 | Lasagna | 56 | 8.70 | 8.62 | 0 | 1 | 25 | 20 | 10 | 18% |
+| 16 | Reflect | 87 | 8.59 | 8.57 | 4 | 10 | 25 | 27 | 21 | 24% |
+| 17 | Tortilla de Patatas | 83 | 8.52 | 8.52 | 0 | 12 | 31 | 25 | 15 | 18% |
+| 18 | A Moral Hazard | 90 | 8.36 | 8.36 | 3 | 11 | 41 | 21 | 14 | 16% |
+| 19 | Komanda 5 | 81 | 8.32 | 8.33 | 2 | 14 | 32 | 22 | 11 | 14% |
+| 20 | Vilkai | 85 | 7.27 | 7.28 | 19 | 36 | 21 | 6 | 3 | 4% |
+| 21 | Uranium-235 | 91 | 6.62 | 6.65 | 47 | 34 | 8 | 2 | 0 | 0% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- results:end -->
