@@ -19,6 +19,8 @@ Latest response 11/4/2026 19:51:49 · 81 reviews from 46 reviewers · 2 teams ·
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
 
+Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**. The +1 is a bonus for being the first presentations.
+
 ## Video results
 
 <!-- results:start -->
