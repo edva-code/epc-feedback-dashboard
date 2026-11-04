@@ -3,7 +3,7 @@ from collections import Counter, defaultdict
 from statistics import mean
 
 # writes team-level results only into the README; no student IDs or feedback text leave the CSV
-csv_path, readme_path = sys.argv[1:3]
+csv_path, readme_path, mark = (sys.argv[1:] + ['results'])[:3]
 with open(csv_path, newline='', encoding='utf-8') as f:
     rows = [r + [''] * (7 - len(r)) for r in list(csv.reader(f))[1:] if any(c.strip() for c in r)]
 rows = [(r[0], r[1].strip(), r[2].strip(), int(r[5].split(' ')[0])) for r in rows]
@@ -35,7 +35,7 @@ for i, (t, s, adj) in enumerate(teams, 1):
     out.append(f'| {i} | {esc(t)} | {len(s)} | {mean(s):.2f} | {adj:.2f} | ' + ' | '.join(str(c[k]) for k in (6, 7, 8, 9, 10)) + f' | {pct(c[10], len(s))} |')
 out += ['', '"Adjusted" removes reviewer luck: each score is compared with that reviewer\'s own average, then shifted back onto the overall average.']
 
-START, END = '<!-- results:start -->', '<!-- results:end -->'
+START, END = f'<!-- {mark}:start -->', f'<!-- {mark}:end -->'
 readme = open(readme_path, encoding='utf-8').read()
 assert readme.count(START) == readme.count(END) == 1
 head, rest = readme.split(START)

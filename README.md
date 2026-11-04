@@ -1,14 +1,25 @@
-# EPC 2026 video feedback
+# EPC 2026 feedback
 
-Results of the "Feedback for video (EPC 2026)" form, where students rated other teams' videos on biases and fallacies.
+Results of two feedback forms: "Feedback for case presentation (EPC 2026)", where students rated other teams' case presentations, and "Feedback for video (EPC 2026)", where they rated other teams' videos on biases and fallacies.
 
 **[Open the interactive dashboard →](https://edva-code.github.io/epc-feedback-dashboard/)**
 
-The dashboard has the leaderboard, the score distribution, how strict or lenient reviewers were, and all the written feedback, searchable and filterable by team and score. Click a team to see only its reviews.
+The dashboard has a tab for each form, with the leaderboard, the score distribution, how strict or lenient reviewers were, and all the written feedback, searchable and filterable by team and score. Click a team to see only its reviews.
 
-## Results
+## Case study results
 
-Updated every hour from the form responses.
+<!-- case-results:start -->
+Latest response 11/4/2026 19:51:49 · 81 reviews from 46 reviewers · 2 teams · average 9.04 · 35% rated 10 · 1% rated 7 or lower
+
+| # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Banglai | 40 | 9.50 | 9.50 | 0 | 0 | 3 | 14 | 23 | 58% |
+| 2 | Vilkai | 41 | 8.59 | 8.59 | 0 | 1 | 20 | 15 | 5 | 12% |
+
+"Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
+<!-- case-results:end -->
+
+## Video results
 
 <!-- results:start -->
 Latest response 10/29/2026 10:20:32 · 1857 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
@@ -42,10 +53,10 @@ Latest response 10/29/2026 10:20:32 · 1857 reviews from 103 reviewers · 21 tea
 
 ## Privacy
 
-No student IDs are published. Each reviewer is shown as a number (Reviewer 0000001, 0000002, …), and any student ID typed into a comment is replaced by `[student ID]`. The written feedback, scores, team names and submission times are public.
+No student IDs are published. Each reviewer is shown as a number (Reviewer 0000001, 0000002, …), and any student ID typed into a comment is replaced by `[student ID]`. Reviewers are numbered separately in each tab, so the same number in both is not the same person. The written feedback, scores, team names and submission times are public.
 
 ## How it works
 
-A GitHub Action runs every hour, downloads the form responses, and writes `data.csv` (the responses without student IDs, via `publish.py`) and the results table above (via `results.py`). The dashboard is `index.html`, served by GitHub Pages, which reads `data.csv` in your browser.
+A GitHub Action, started by hand, downloads the responses of both forms and writes `data-case.csv` and `data.csv` (the responses without student IDs, via `publish.py`) and the results tables above (via `results.py`). The dashboard is `index.html`, served by GitHub Pages, which reads those CSVs in your browser.
 
-For local use, `build.py` builds a single offline HTML file from a CSV export of the sheet, and `update.sh` refreshes it. Keep `data/` and the built HTML private, since they still contain student IDs (both are gitignored).
+For local use, `build.py` builds a single offline HTML file from a CSV export of the video sheet, and `update.sh` refreshes it. Keep `data/` and the built HTML private, since they still contain student IDs (both are gitignored).

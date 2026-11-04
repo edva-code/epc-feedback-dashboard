@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>EPC Video Feedback</title>
+<title>EPC Feedback</title>
 <style>
 :root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);--s1:#2a78d6;--sel:#eef4fc;
   --sc6:#e34948;--sc7:#f2a09c;--sc8:#c9c8c0;--sc9:#86b6ef;--sc10:#2a78d6}
@@ -56,14 +56,16 @@ input{flex:1;min-width:160px}
 .chip{display:inline-flex;align-items:center;gap:5px;color:var(--ink);font-weight:600}.chip i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .more{margin-top:12px;font:inherit;cursor:pointer;background:none;border:1px solid var(--axis);color:var(--ink);border-radius:6px;padding:6px 12px}
 ul.dq{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
-body:not(.ready) main > :not(h1,#drop){display:none}.ready #drop{display:none}
+#tabs{margin:10px 0 8px}
+body:not(.ready) main > :not(h1,#tabs,#drop){display:none}.ready #drop{display:none}
 #drop{margin-top:20px;border:2px dashed var(--axis)}body.over #drop{border-color:var(--s1)}#dropErr{color:var(--sc6);margin:8px 0 0}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:5px 8px;border-radius:6px;opacity:0;transition:opacity .08s;z-index:9;max-width:260px}
 </style>
 </head>
 <body>
 <main>
-  <h1>EPC 2026 video feedback</h1>
+  <h1>EPC 2026 feedback</h1>
+  <nav class="seg" id="tabs" aria-label="Feedback round"><button data-k="case" aria-pressed="true">Case studies</button><button data-k="video" aria-pressed="false">Videos</button></nav>
   <p class="sub" id="meta"></p>
   <section class="card" id="drop">
     <h2>Load the responses</h2>
@@ -88,7 +90,7 @@ body:not(.ready) main > :not(h1,#drop){display:none}.ready #drop{display:none}
       </section>
       <section class="card">
         <h2>Reviewer leniency</h2>
-        <p class="cap">Average score each reviewer gave (reviewers with 3 or more reviews). The spread shows why raw averages depend on who watched which video.</p>
+        <p class="cap" id="leniCap"></p>
         <div class="hist" id="hist"></div><div class="hax" id="hax"></div>
       </section>
       <section class="card">
@@ -149,12 +151,65 @@ console.assert(JSON.stringify(parseCSV('a,"b\n""c"""\r\n1,')) === '[["a","b\\n\\
 // YouTube IDs from the "Video submission" form, keyed by the exact team name in the feedback form
 const VIDEOS = {"Communicators": "4oUy-oNaBiM", "BEAM": "_n0bM-JR-g4", "Team Builders": "2369zdaCVBQ", "Baziliskai": "-Wpdr6HjFxo", "Team name": "yF8skuU_6H0", "Reflect": "9BeAXuPKvQ4", "Uranium-235": "TxLuLuuHRVA", "A Moral Hazard": "w_Xj4tpgkdI", "Banglai": "wRjSxnmwCUs", "Zaibas": "_-xI6Wa69-s", "Sisyphus": "-cEpiEQKTNI", "weshop@vinted": "Ffa0PkDVqto", "Tortilla de Patatas": "iUvc2RoFCag", "(em)pathetic": "ZztCKh2tgUY", "Team": "Cbl5dOIBzqA", "Vilkai": "TnkmoM-O-os", "Etikos komisija": "Eiu0rbPpfCU", "komcon.": "YDexe75C2bI", "Komanda 5": "xhnwX4rXRWo", "Lasagna": "YvTruTNXd_Q", "VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ": "O0o12A7LrbI"};
 
+const blank = s => s.replace(/[\s.\-–_]/g,'').length < 3;
+const TABS = {
+  case: {file:'data-case.csv', unit:'presenting teams', seen:'saw which presentation', videos:{}, themes:{
+      better: [
+        ['Body language / eye contact', /body language|hands?\b|gestur|posture|eye contact|looking|stand|moving|movement|stiff/i],
+        ['Reading / rehearsal', /\bread|script|rehears|notes|memori|scripted|natural/i],
+        ['Voice / speaking', /voice|speak|speech|talk|loud|quiet|mic\b|hear|tone|filler|stutter|confiden|nervous|monoton/i],
+        ['Slides / visuals', /slide|visual|text\b|image|picture|font/i],
+        ['Length / pacing', /too long|longer|shorter|too short|length|pac(e|ing)|slow|rush|fast|repet|repeat|same thing|drag|time/i],
+        ['Audience interaction', /audience|interact|question|slido|poll|engag/i],
+        ['Structure / ending', /structur|ending|conclu|abrupt|transition|introduc|opening|flow/i],
+        ['Depth of content', /depth|deeper|detail|argument|theor|ethic|analys|example|focus|topic/i],
+        ['Nothing to improve', /^(nothing|none|no)\b|not much|can'?t think|nothing to|everything was|no improvement/i],
+        ['Left blank', {test: blank}],
+      ],
+      good: [
+        ['Interesting topic', /topic|interesting|case|relatab/i],
+        ['Clear explanation', /clear|explain|explanation|understand|structured|easy to follow|easy/i],
+        ['Audience interaction', /audience|interact|question|slido|poll|involv/i],
+        ['Examples', /example|real|comparison|analog/i],
+        ['Speaking / confidence', /speak|speech|voice|confiden|pause|body language|delivery|listen/i],
+        ['Dialogue between speakers', /dialogue|conversation|both sides|two sides|sides|debate|chemistry/i],
+        ['Slides / visuals', /slide|visual|image|picture/i],
+        ['Arguments / theory', /argument|theor|philosoph|kant|ethic|point/i],
+        ['Engaging', /engag|attention|enjoy|captivat|entertain|fun\b/i],
+      ],
+    }},
+  video: {file:'data.csv', unit:'teams / videos', seen:'watched which video', videos:VIDEOS, themes:{
+      better: [
+        ['Audio / voice-over', /audio|sound|mic|voice|hear|loud|quiet|volume|music/i],
+        ['Subtitles', /subtit|caption/i],
+        ['Length / pacing', /too long|longer|shorter|too short|length|pac(e|ing)|slow|rush|repet|drag|time limit/i],
+        ['Too many memes', /meme/i],
+        ['Acting / delivery', /acting|acted|act out|delivery|narrat|tone|camera|laugh/i],
+        ['Editing / visuals', /edit|visual|graphic|quality|transition|animation/i],
+        ['Clarity of explanation', /explain|explanation|confus|understand|hard to follow|unclear/i],
+        ['More engaging / creative', /boring|creativ|engag|intrigu|original|plain/i],
+        ['AI-generated content', /\bAI\b|generated/],
+        ['Nothing to improve', /^(nothing|none|no)\b|not much|can'?t think|nothing to|everything was|no improvement/i],
+        ['Left blank', {test: blank}],
+      ],
+      good: [
+        ['Humor', /funn|humou?r|joke|laugh|comic|amus|meme/i],
+        ['Relatable / real examples', /relatab|example|real|situation|scenario/i],
+        ['Clear explanation', /clear|explain|explanation|understand|structured|easy to follow/i],
+        ['Editing / visuals', /edit|visual|graphic|animation|quality/i],
+        ['Acting', /acting|acted|actor|perform/i],
+        ['Creativity / originality', /creativ|unique|original|idea|concept|nostalg/i],
+        ['Engaging', /engag|interesting|attention|enjoy|captivat/i],
+        ['Narration / voice', /narrat|voice/i],
+      ],
+    }},
+};
+
 // the whole dashboard is built from RAW (rows without the header); not re-indented to keep the diff small
-function start(RAW) {
+function start(RAW, TAB) {
 const SC = [6,7,8,9,10];
 const LBL = {6:'6 – re-do',7:'7 – borderline',8:'8 – good',9:'9 – awesome',10:'10 – perfect'};
 const col = s => `var(--sc${s})`;
-const blank = s => s.replace(/[\s.\-–_]/g,'').length < 3;
 const rows = RAW.map(r => ({ts:r[0], id:r[1].trim(), team:r[2].trim(), good:r[3].trim(), better:r[4].trim(), score:parseInt(r[5],10), other:(r[6]||'').trim()}));
 const mean = a => a.reduce((s,x) => s+x, 0) / a.length;
 const group = (a,f) => a.reduce((m,x) => (m.get(f(x)) || m.set(f(x),[]).get(f(x))).push(x) && m, new Map());
@@ -172,32 +227,6 @@ const teams = [...group(rows, r => r.team)].map(([name, rs]) => {
           counts:SC.map(k => s.filter(x => x===k).length), top:s.filter(x => x===10).length/s.length};
 });
 
-const THEMES = {
-  better: [
-    ['Audio / voice-over', /audio|sound|mic|voice|hear|loud|quiet|volume|music/i],
-    ['Subtitles', /subtit|caption/i],
-    ['Length / pacing', /too long|longer|shorter|too short|length|pac(e|ing)|slow|rush|repet|drag|time limit/i],
-    ['Too many memes', /meme/i],
-    ['Acting / delivery', /acting|acted|act out|delivery|narrat|tone|camera|laugh/i],
-    ['Editing / visuals', /edit|visual|graphic|quality|transition|animation/i],
-    ['Clarity of explanation', /explain|explanation|confus|understand|hard to follow|unclear/i],
-    ['More engaging / creative', /boring|creativ|engag|intrigu|original|plain/i],
-    ['AI-generated content', /\bAI\b|generated/],
-    ['Nothing to improve', /^(nothing|none|no)\b|not much|can'?t think|nothing to|everything was|no improvement/i],
-    ['Left blank', {test: blank}],
-  ],
-  good: [
-    ['Humor', /funn|humou?r|joke|laugh|comic|amus|meme/i],
-    ['Relatable / real examples', /relatab|example|real|situation|scenario/i],
-    ['Clear explanation', /clear|explain|explanation|understand|structured|easy to follow/i],
-    ['Editing / visuals', /edit|visual|graphic|animation|quality/i],
-    ['Acting', /acting|acted|actor|perform/i],
-    ['Creativity / originality', /creativ|unique|original|idea|concept|nostalg/i],
-    ['Engaging', /engag|interesting|attention|enjoy|captivat/i],
-    ['Narration / voice', /narrat|voice/i],
-  ],
-};
-
 let sel = null, sortK = 'adj', sortDir = -1, thK = 'better', scF = null, shown = 40;
 const selRows = () => sel ? teams.find(t => t.name === sel).rs : rows;
 
@@ -205,8 +234,8 @@ const selRows = () => sel ? teams.find(t => t.name === sel).rs : rows;
 const days = [...group(rows, r => r.ts.split(' ')[0])].map(([d,v]) => `${d} (${v.length})`).join(', ');
 document.getElementById('meta').textContent = `Form responses 1 · ${rows.length} reviews · collected ${days}`;
 const kpi = (v,l) => el('div',{className:'card kpi'}, el('div',{className:'v',textContent:v}), el('div',{className:'l',textContent:l}));
-document.getElementById('kpis').append(
-  kpi(rows.length, 'reviews'), kpi(byRev.size, 'reviewers'), kpi(teams.length, 'teams / videos'),
+document.getElementById('kpis').replaceChildren(
+  kpi(rows.length, 'reviews'), kpi(byRev.size, 'reviewers'), kpi(teams.length, TAB.unit),
   kpi(grand.toFixed(2), 'average score (6–10)'), kpi(pct(rows.filter(r => r.score===10).length/rows.length), 'rated 10 “perfect example”'),
   kpi(pct(rows.filter(r => r.score<=7).length/rows.length), 'rated 7 or lower'));
 const legend = id => document.getElementById(id).replaceChildren(...SC.map(s => el('span',{}, el('i',{style:`background:${col(s)}`}), LBL[s])));
@@ -217,7 +246,8 @@ legend('scLegend');
   const ms = [...byRev].filter(([,v]) => v.length >= 3).map(([k]) => revMean.get(k));
   const lo = 6, w = 0.25, bins = Array.from({length:16}, (_,i) => ({a:lo+i*w, n:0}));
   ms.forEach(m => bins[Math.min(15, Math.floor((m-lo)/w))].n++);
-  const max = Math.max(...bins.map(b => b.n));
+  const max = Math.max(1, ...bins.map(b => b.n));
+  document.getElementById('leniCap').textContent = ms.length ? `Average score each reviewer gave (reviewers with 3 or more reviews). The spread shows why raw averages depend on who ${TAB.seen}.` : 'Fills in once a reviewer has 3 or more reviews.';
   document.getElementById('hist').replaceChildren(...bins.map(b => el('div',{style:`height:${100*b.n/max}%`, dataset:{tip:`Average ${b.a.toFixed(2)}–${(b.a+w).toFixed(2)}: ${b.n} reviewers`}})));
   document.getElementById('hax').replaceChildren(...[6,7,8,9,10].map(x => el('span',{textContent:x})));
 }
@@ -242,6 +272,7 @@ document.getElementById('teamSel').replaceChildren(el('option',{value:'',textCon
   ...[...teams].sort((a,b) => a.name.localeCompare(b.name)).map(t => el('option',{value:t.name,textContent:`${t.name} (${t.n})`})));
 document.getElementById('teamSel').onchange = e => setSel(e.target.value || null);
 document.getElementById('scSeg').replaceChildren(...[null, ...SC].map(s => el('button',{textContent:s ?? 'All', ariaPressed:String(s===scF), onclick:() => { scF = s; shown = 40; renderComments(); }})));
+document.getElementById('q').value = '';
 document.getElementById('q').oninput = () => { shown = 40; renderComments(); };
 document.getElementById('thSeg').onclick = e => { const k = e.target.dataset.k; if (k) { thK = k; renderThemes(); } };
 document.getElementById('more').onclick = () => { shown += 40; renderComments(); };
@@ -256,7 +287,7 @@ function renderTable() {
     k ? el('button',{textContent: l + (k===sortK ? (sortDir<0?' ↓':' ↑') : ''), onclick:() => { sortDir = k===sortK ? -sortDir : -1; sortK = k; renderTable(); }}) : el('span',{style:'display:block;padding:6px 8px',textContent:l}))));
   const body = sorted.map((t,i) => el('tr',{className: t.name===sel ? 'on' : '', onclick:() => setSel(t.name)},
     el('td',{}, `${i+1}. ${t.name}`, ...(t.n < 15 ? [el('span',{className:'badge',textContent:'few reviews'})] : []),
-      ...(VIDEOS[t.name] ? [el('a',{className:'vid',href:`https://youtu.be/${VIDEOS[t.name]}`,target:'_blank',rel:'noopener',textContent:'▶ Video',ariaLabel:`Watch ${t.name}’s video on YouTube`,onclick:e => e.stopPropagation()})] : [])),
+      ...(TAB.videos[t.name] ? [el('a',{className:'vid',href:`https://youtu.be/${TAB.videos[t.name]}`,target:'_blank',rel:'noopener',textContent:'▶ Video',ariaLabel:`Watch ${t.name}’s video on YouTube`,onclick:e => e.stopPropagation()})] : [])),
     el('td',{className:'num',textContent:t.n}),
     el('td',{className:'num',textContent:t.mean.toFixed(2),dataset:{tip:`${t.mean.toFixed(2)} ± ${(1.96*t.se).toFixed(2)} (95% CI)`}}),
     el('td',{className:'num',textContent:t.adj.toFixed(2)}),
@@ -289,7 +320,7 @@ function renderThemes() {
   const rs = selRows(), share = (set,re) => set.filter(r => re.test(r[thK])).length / set.length;
   document.getElementById('thTitle').textContent = `Feedback themes · ${sel || 'all teams'}`;
   document.getElementById('thLegend').replaceChildren(...(sel ? [el('span',{}, el('i',{style:'background:var(--s1)'}), sel), el('span',{}, el('i',{style:'background:var(--ink);width:2px'}), 'All teams')] : []));
-  hbars('themes', THEMES[thK].map(([label,re]) => { const v = share(rs,re);
+  hbars('themes', TAB.themes[thK].map(([label,re]) => { const v = share(rs,re);
     return {label, v, r:share(rows,re), txt:pct(v), tip:`${label}: ${pct(v)} of ${sel || 'all'} comments`}; })
     .sort((a,b) => b.v-a.v), !!sel);
 }
@@ -318,28 +349,36 @@ function render() { renderTable(); renderDist(); renderThemes(); renderComments(
 renderLow(); render();
 } // start
 
-const boot = rows => { document.body.classList.add('ready'); start(rows); };
-async function load(file) {
-  const err = document.getElementById('dropErr');
+let cur = 'case';
+// a failure shows the drop card again, otherwise the error would sit hidden behind the previous tab
+const fail = msg => { document.body.classList.remove('ready'); document.getElementById('dropErr').textContent = msg; };
+const boot = (rows, t) => { document.body.classList.add('ready'); start(rows, TABS[t]); };
+async function load(file, t = cur) {
   try {
     const rows = parseCSV((await file.text()).replace(/^﻿/, '')).slice(1).filter(r => r.some(c => c.trim()))
       .map(r => r.concat(Array(Math.max(0, 7 - r.length)).fill('')));
+    if (t !== cur) return; // the viewer switched tabs while this was loading
     if (!rows.length || !rows.every(r => /^(6|7|8|9|10)\b/.test(r[5])))
-      return err.textContent = 'This doesn’t look like the feedback form export: the 6th column should be the 6–10 evaluation.';
-    boot(rows);
-  } catch (e) { err.textContent = 'Couldn’t read that file: ' + e.message; }
+      return fail('This doesn’t look like the feedback form export: the 6th column should be the 6–10 evaluation.');
+    boot(rows, t);
+  } catch (e) { fail('Couldn’t read that file: ' + e.message); }
 }
-if (EMBED) boot(EMBED);
 // shared links carry the sheet as #<id>/<gid>; the fragment never reaches GitHub, so the repo and page stay link-free
 const m = location.hash.match(/^#([\w-]{25,})\/(\d+)$/), dropH = document.querySelector('#drop h2');
-// without a sheet link, load data.csv: the Action's copy of the sheet with student IDs swapped for reviewer numbers
-if (!EMBED) {
+function show(t) {
+  cur = t;
+  document.querySelectorAll('#tabs button').forEach(b => b.ariaPressed = String(b.dataset.k === t));
   dropH.textContent = 'Loading the latest responses…';
-  fetch(m ? `https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${m[2]}` : 'data.csv', {cache:'no-cache'})
-    .then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return load(r); })
-    .catch(e => document.getElementById('dropErr').textContent = `Couldn’t load the sheet (${e.message}), drop the CSV instead.`)
+  // without a sheet link, load the Action's copy of the sheet with student IDs swapped for reviewer numbers
+  fetch(m ? `https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${m[2]}` : TABS[t].file, {cache:'no-cache'})
+    .then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return load(r, t); })
+    .catch(e => t === cur && fail(`Couldn’t load the sheet (${e.message}), drop the CSV instead.`))
     .finally(() => dropH.textContent = 'Load the responses');
 }
+// ponytail: the offline build and sheet links hold one sheet and always use the video config; pass the tab along if they ever need case studies
+if (EMBED || m) { cur = 'video'; document.getElementById('tabs').remove(); }
+else document.getElementById('tabs').onclick = e => { const k = e.target.dataset.k; if (k && k !== cur) show(k); };
+if (EMBED) boot(EMBED, cur); else show(cur);
 const fileIn = document.getElementById('file');
 fileIn.onchange = () => fileIn.files[0] && load(fileIn.files[0]);
 addEventListener('dragover', e => { e.preventDefault(); document.body.classList.add('over'); });

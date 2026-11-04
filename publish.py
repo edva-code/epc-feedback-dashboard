@@ -14,13 +14,14 @@ for r in rows:
     k = r[1].strip()
     ids.setdefault(k, f'{len(ids) + 1:07d}' if re.fullmatch(r'\d{7}', k) else f'x{len(ids) + 1}')
 
-# someone may have typed their own or a classmate's ID into a comment
+# someone may have typed their own or a classmate's ID into a comment, and that classmate may not have reviewed in this sheet
 real = sorted((k for k in ids if len(k) >= 5), key=len, reverse=True)
-scrub = (lambda c: re.sub('|'.join(map(re.escape, real)), '[student ID]', c)) if real else (lambda c: c)
+id_re = re.compile('|'.join([*map(re.escape, real), r'\b\d{7}\b']))
+scrub = lambda c: id_re.sub('[student ID]', c)
 out = [[r[0], ids[r[1].strip()], *map(scrub, r[2:7])] for r in rows]
 
 assert not set(ids.values()) & set(ids), 'a reviewer number equals a real ID'
-assert not any(k in c for r in out for c in [r[0], *r[2:]] for k in real), 'a student ID survived'
+assert not any(id_re.search(c) for r in out for c in [r[0], *r[2:]]), 'a student ID survived'
 with open(dst, 'w', newline='', encoding='utf-8') as f:
     csv.writer(f).writerows([[head[0], 'Reviewer', *head[2:]], *out])
 print('published', len(out), 'rows from', len(ids), 'reviewers')
