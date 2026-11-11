@@ -9,13 +9,13 @@ The dashboard has a tab for each form, with the leaderboard, the score distribut
 ## Case study results
 
 <!-- case-results:start -->
-Latest response 11/11/2026 17:46:44 · 128 reviews from 62 reviewers · 3 teams · average 8.86 · 26% rated 10 · 2% rated 7 or lower
+Latest response 11/11/2026 17:54:49 · 133 reviews from 66 reviewers · 3 teams · average 8.86 · 26% rated 10 · 2% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Banglai | 40 | 9.50 | 9.50 | 0 | 0 | 3 | 14 | 23 | 58% |
-| 2 | Vilkai | 41 | 8.59 | 8.58 | 0 | 1 | 20 | 15 | 5 | 12% |
-| 3 | Etikos komisija | 47 | 8.55 | 8.56 | 0 | 2 | 22 | 18 | 5 | 11% |
+| 1 | Banglai | 40 | 9.50 | 9.49 | 0 | 0 | 3 | 14 | 23 | 58% |
+| 2 | Etikos komisija | 52 | 8.58 | 8.60 | 0 | 2 | 24 | 20 | 6 | 12% |
+| 3 | Vilkai | 41 | 8.59 | 8.57 | 0 | 1 | 20 | 15 | 5 | 12% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
