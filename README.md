@@ -9,12 +9,13 @@ The dashboard has a tab for each form, with the leaderboard, the score distribut
 ## Case study results
 
 <!-- case-results:start -->
-Latest response 11/4/2026 19:51:49 · 81 reviews from 46 reviewers · 2 teams · average 9.04 · 35% rated 10 · 1% rated 7 or lower
+Latest response 11/11/2026 17:46:44 · 128 reviews from 62 reviewers · 3 teams · average 8.86 · 26% rated 10 · 2% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | 1 | Banglai | 40 | 9.50 | 9.50 | 0 | 0 | 3 | 14 | 23 | 58% |
-| 2 | Vilkai | 41 | 8.59 | 8.59 | 0 | 1 | 20 | 15 | 5 | 12% |
+| 2 | Vilkai | 41 | 8.59 | 8.58 | 0 | 1 | 20 | 15 | 5 | 12% |
+| 3 | Etikos komisija | 47 | 8.55 | 8.56 | 0 | 2 | 22 | 18 | 5 | 11% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
@@ -24,7 +25,7 @@ Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**. The +1 is a bo
 ## Video results
 
 <!-- results:start -->
-Latest response 10/29/2026 10:20:32 · 1857 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
+Latest response 11/11/2026 17:35:55 · 1858 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -34,7 +35,7 @@ Latest response 10/29/2026 10:20:32 · 1857 reviews from 103 reviewers · 21 tea
 | 4 | Banglai | 87 | 9.63 | 9.61 | 0 | 1 | 6 | 17 | 63 | 72% |
 | 5 | Communicators | 90 | 9.31 | 9.31 | 0 | 1 | 13 | 33 | 43 | 48% |
 | 6 | Zaibas | 92 | 9.20 | 9.20 | 1 | 0 | 10 | 50 | 31 | 34% |
-| 7 | Etikos komisija | 86 | 9.14 | 9.15 | 0 | 0 | 16 | 42 | 28 | 33% |
+| 7 | Etikos komisija | 87 | 9.13 | 9.15 | 0 | 0 | 17 | 42 | 28 | 32% |
 | 8 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 88 | 9.12 | 9.13 | 0 | 4 | 16 | 33 | 35 | 40% |
 | 9 | komcon. | 87 | 9.07 | 9.09 | 2 | 2 | 14 | 39 | 30 | 34% |
 | 10 | Baziliskai | 89 | 9.06 | 9.04 | 1 | 2 | 18 | 38 | 30 | 34% |
