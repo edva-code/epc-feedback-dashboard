@@ -154,7 +154,7 @@ const VIDEOS = {"Communicators": "4oUy-oNaBiM", "BEAM": "_n0bM-JR-g4", "Team Bui
 const blank = s => s.replace(/[\s.\-–_]/g,'').length < 3;
 const TABS = {
   // lecturer: [grade, bonus] per team, kept here because data-case.csv and the README results are overwritten on refresh
-  case: {file:'data-case.csv', unit:'presenting teams', seen:'saw which presentation', videos:{}, lecturer:{Banglai:[8.5,1], Vilkai:[6,1]}, lbNote:' “Lecturer” is the final grade from the lecturer: the grade plus a 1-point bonus for being the first presentations.', themes:{
+  case: {file:'data-case.csv', unit:'presenting teams', seen:'saw which presentation', videos:{}, lecturer:{Banglai:[8.5,1], Vilkai:[6,1], Sisyphus:[9,0], 'Etikos komisija':[7.5,0]}, lbNote:' “Lecturer” is the final grade from the lecturer: the grade plus a 1-point bonus for the first presentations (Banglai and Vilkai).', themes:{
       better: [
         ['Body language / eye contact', /body language|hands?\b|gestur|posture|eye contact|looking|stand|moving|movement|stiff/i],
         ['Reading / rehearsal', /\bread|script|rehears|notes|memori|scripted|natural/i],
@@ -295,7 +295,7 @@ function renderTable() {
     el('td',{className:'num',textContent:t.n}),
     el('td',{className:'num',textContent:t.mean.toFixed(2),dataset:{tip:`${t.mean.toFixed(2)} ± ${(1.96*t.se).toFixed(2)} (95% CI)`}}),
     el('td',{className:'num',textContent:t.adj.toFixed(2)}),
-    ...(TAB.lecturer ? [el('td',{className:'num'}, ...(t.lect ? [el('span',{style:'color:var(--muted)',textContent:`${t.lect[0]} + ${t.lect[1]} = `}), el('b',{textContent:t.final})] : ['–']))] : []),
+    ...(TAB.lecturer ? [el('td',{className:'num'}, ...(t.lect ? [...(t.lect[1] ? [el('span',{style:'color:var(--muted)',textContent:`${t.lect[0]} + ${t.lect[1]} = `})] : []), el('b',{textContent:t.final})] : ['–']))] : []),
     el('td',{}, el('div',{className:'dist'}, ...t.counts.map((c,j) => c ? el('span',{style:`width:${100*c/t.n}%;background:${col(SC[j])}`, dataset:{tip:`${t.name} · ${LBL[SC[j]]}: ${c} (${pct(c/t.n)})`}}) : ''))),
     el('td',{className:'num',textContent:pct(t.top)})));
   document.getElementById('lb').replaceChildren(el('thead',{},head), el('tbody',{},...body));

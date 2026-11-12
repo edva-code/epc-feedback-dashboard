@@ -21,7 +21,7 @@ Latest response 11/11/2026 18:47:24 · 179 reviews from 67 reviewers · 4 teams 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
 
-Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**. The +1 is a bonus for being the first presentations.
+Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**, Sisyphus **9**, Etikos komisija **7.5**. The +1 is a bonus for Banglai and Vilkai for being the first presentations.
 
 ## Video results
 
