@@ -9,14 +9,14 @@ The dashboard has a tab for each form, with the leaderboard, the score distribut
 ## Case study results
 
 <!-- case-results:start -->
-Latest response 11/18/2026 18:40:46 · 324 reviews from 75 reviewers · 7 teams · average 9.04 · 34% rated 10 · 3% rated 7 or lower
+Latest response 11/18/2026 18:41:28 · 327 reviews from 75 reviewers · 7 teams · average 9.04 · 34% rated 10 · 3% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | 1 | Banglai | 40 | 9.50 | 9.52 | 0 | 0 | 3 | 14 | 23 | 58% |
-| 2 | (em)pathetic | 48 | 9.44 | 9.40 | 0 | 0 | 6 | 15 | 27 | 56% |
+| 2 | (em)pathetic | 48 | 9.44 | 9.39 | 0 | 0 | 6 | 15 | 27 | 56% |
 | 3 | Sisyphus | 46 | 9.30 | 9.33 | 0 | 0 | 5 | 22 | 19 | 41% |
-| 4 | BEAM | 46 | 9.17 | 9.16 | 0 | 2 | 7 | 18 | 19 | 41% |
+| 4 | BEAM | 49 | 9.16 | 9.15 | 0 | 2 | 8 | 19 | 20 | 41% |
 | 5 | Tortilla de Patatas | 51 | 8.80 | 8.79 | 0 | 4 | 13 | 23 | 11 | 22% |
 | 6 | Vilkai | 41 | 8.59 | 8.61 | 0 | 1 | 20 | 15 | 5 | 12% |
 | 7 | Etikos komisija | 52 | 8.58 | 8.58 | 0 | 2 | 24 | 20 | 6 | 12% |
