@@ -9,14 +9,15 @@ The dashboard has a tab for each form, with the leaderboard, the score distribut
 ## Case study results
 
 <!-- case-results:start -->
-Latest response 11/11/2026 18:47:24 · 179 reviews from 67 reviewers · 4 teams · average 8.97 · 30% rated 10 · 2% rated 7 or lower
+Latest response 11/18/2026 17:42:43 · 222 reviews from 71 reviewers · 5 teams · average 9.06 · 35% rated 10 · 1% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Banglai | 40 | 9.50 | 9.49 | 0 | 0 | 3 | 14 | 23 | 58% |
-| 2 | Sisyphus | 46 | 9.30 | 9.32 | 0 | 0 | 5 | 22 | 19 | 41% |
-| 3 | Vilkai | 41 | 8.59 | 8.59 | 0 | 1 | 20 | 15 | 5 | 12% |
-| 4 | Etikos komisija | 52 | 8.58 | 8.57 | 0 | 2 | 24 | 20 | 6 | 12% |
+| 1 | Banglai | 40 | 9.50 | 9.51 | 0 | 0 | 3 | 14 | 23 | 58% |
+| 2 | (em)pathetic | 43 | 9.44 | 9.37 | 0 | 0 | 6 | 12 | 25 | 58% |
+| 3 | Sisyphus | 46 | 9.30 | 9.34 | 0 | 0 | 5 | 22 | 19 | 41% |
+| 4 | Vilkai | 41 | 8.59 | 8.60 | 0 | 1 | 20 | 15 | 5 | 12% |
+| 5 | Etikos komisija | 52 | 8.58 | 8.58 | 0 | 2 | 24 | 20 | 6 | 12% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
@@ -26,11 +27,11 @@ Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**, Sisyphus **9**
 ## Video results
 
 <!-- results:start -->
-Latest response 11/11/2026 17:35:55 · 1858 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
+Latest response 11/18/2026 17:40:55 · 1859 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| 1 | (em)pathetic | 88 | 9.76 | 9.77 | 0 | 1 | 4 | 10 | 73 | 83% |
+| 1 | (em)pathetic | 89 | 9.76 | 9.77 | 0 | 1 | 4 | 10 | 74 | 83% |
 | 2 | Sisyphus | 92 | 9.70 | 9.70 | 0 | 1 | 7 | 11 | 73 | 79% |
 | 3 | weshop@vinted | 90 | 9.66 | 9.62 | 1 | 0 | 6 | 15 | 68 | 76% |
 | 4 | Banglai | 87 | 9.63 | 9.61 | 0 | 1 | 6 | 17 | 63 | 72% |
@@ -39,7 +40,7 @@ Latest response 11/11/2026 17:35:55 · 1858 reviews from 103 reviewers · 21 tea
 | 7 | Etikos komisija | 87 | 9.13 | 9.15 | 0 | 0 | 17 | 42 | 28 | 32% |
 | 8 | VVT  ඞ⃢ඞ⃢ඞIIIඞ⃢ඞ | 88 | 9.12 | 9.13 | 0 | 4 | 16 | 33 | 35 | 40% |
 | 9 | komcon. | 87 | 9.07 | 9.09 | 2 | 2 | 14 | 39 | 30 | 34% |
-| 10 | Baziliskai | 89 | 9.06 | 9.04 | 1 | 2 | 18 | 38 | 30 | 34% |
+| 10 | Baziliskai | 89 | 9.06 | 9.03 | 1 | 2 | 18 | 38 | 30 | 34% |
 | 11 | Team | 90 | 9.00 | 9.01 | 0 | 5 | 18 | 39 | 28 | 31% |
 | 12 | BEAM | 90 | 8.94 | 8.94 | 0 | 5 | 20 | 40 | 25 | 28% |
 | 13 | Team name | 86 | 8.80 | 8.78 | 0 | 8 | 22 | 35 | 21 | 24% |
