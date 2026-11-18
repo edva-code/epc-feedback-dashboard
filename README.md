@@ -9,15 +9,17 @@ The dashboard has a tab for each form, with the leaderboard, the score distribut
 ## Case study results
 
 <!-- case-results:start -->
-Latest response 11/18/2026 17:42:43 · 222 reviews from 71 reviewers · 5 teams · average 9.06 · 35% rated 10 · 1% rated 7 or lower
+Latest response 11/18/2026 18:40:46 · 324 reviews from 75 reviewers · 7 teams · average 9.04 · 34% rated 10 · 3% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Banglai | 40 | 9.50 | 9.51 | 0 | 0 | 3 | 14 | 23 | 58% |
-| 2 | (em)pathetic | 43 | 9.44 | 9.37 | 0 | 0 | 6 | 12 | 25 | 58% |
-| 3 | Sisyphus | 46 | 9.30 | 9.34 | 0 | 0 | 5 | 22 | 19 | 41% |
-| 4 | Vilkai | 41 | 8.59 | 8.60 | 0 | 1 | 20 | 15 | 5 | 12% |
-| 5 | Etikos komisija | 52 | 8.58 | 8.58 | 0 | 2 | 24 | 20 | 6 | 12% |
+| 1 | Banglai | 40 | 9.50 | 9.52 | 0 | 0 | 3 | 14 | 23 | 58% |
+| 2 | (em)pathetic | 48 | 9.44 | 9.40 | 0 | 0 | 6 | 15 | 27 | 56% |
+| 3 | Sisyphus | 46 | 9.30 | 9.33 | 0 | 0 | 5 | 22 | 19 | 41% |
+| 4 | BEAM | 46 | 9.17 | 9.16 | 0 | 2 | 7 | 18 | 19 | 41% |
+| 5 | Tortilla de Patatas | 51 | 8.80 | 8.79 | 0 | 4 | 13 | 23 | 11 | 22% |
+| 6 | Vilkai | 41 | 8.59 | 8.61 | 0 | 1 | 20 | 15 | 5 | 12% |
+| 7 | Etikos komisija | 52 | 8.58 | 8.58 | 0 | 2 | 24 | 20 | 6 | 12% |
 
 "Adjusted" removes reviewer luck: each score is compared with that reviewer's own average, then shifted back onto the overall average.
 <!-- case-results:end -->
@@ -27,7 +29,7 @@ Lecturer grades: Banglai 8.5 + 1 = **9.5**, Vilkai 6 + 1 = **7**, Sisyphus **9**
 ## Video results
 
 <!-- results:start -->
-Latest response 11/18/2026 17:40:55 · 1859 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
+Latest response 11/18/2026 18:36:00 · 1861 reviews from 103 reviewers · 21 teams · average 8.82 · 35% rated 10 · 13% rated 7 or lower
 
 | # | Team | Reviews | Avg | Adjusted | 6 | 7 | 8 | 9 | 10 | Share of 10s |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -42,12 +44,12 @@ Latest response 11/18/2026 17:40:55 · 1859 reviews from 103 reviewers · 21 tea
 | 9 | komcon. | 87 | 9.07 | 9.09 | 2 | 2 | 14 | 39 | 30 | 34% |
 | 10 | Baziliskai | 89 | 9.06 | 9.03 | 1 | 2 | 18 | 38 | 30 | 34% |
 | 11 | Team | 90 | 9.00 | 9.01 | 0 | 5 | 18 | 39 | 28 | 31% |
-| 12 | BEAM | 90 | 8.94 | 8.94 | 0 | 5 | 20 | 40 | 25 | 28% |
+| 12 | BEAM | 91 | 8.96 | 8.95 | 0 | 5 | 20 | 40 | 26 | 29% |
 | 13 | Team name | 86 | 8.80 | 8.78 | 0 | 8 | 22 | 35 | 21 | 24% |
 | 14 | Team Builders | 90 | 8.68 | 8.68 | 1 | 9 | 27 | 34 | 19 | 21% |
-| 15 | Lasagna | 72 | 8.60 | 8.56 | 0 | 2 | 35 | 25 | 10 | 14% |
-| 16 | Reflect | 89 | 8.57 | 8.56 | 5 | 10 | 25 | 27 | 22 | 25% |
-| 17 | Tortilla de Patatas | 87 | 8.51 | 8.50 | 0 | 13 | 33 | 25 | 16 | 18% |
+| 15 | Lasagna | 72 | 8.60 | 8.57 | 0 | 2 | 35 | 25 | 10 | 14% |
+| 16 | Reflect | 89 | 8.57 | 8.57 | 5 | 10 | 25 | 27 | 22 | 25% |
+| 17 | Tortilla de Patatas | 88 | 8.51 | 8.51 | 0 | 13 | 33 | 26 | 16 | 18% |
 | 18 | Komanda 5 | 90 | 8.33 | 8.34 | 2 | 14 | 37 | 26 | 11 | 12% |
 | 19 | A Moral Hazard | 94 | 8.33 | 8.33 | 4 | 12 | 41 | 23 | 14 | 15% |
 | 20 | Vilkai | 88 | 7.27 | 7.29 | 19 | 38 | 22 | 6 | 3 | 3% |
